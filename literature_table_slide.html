@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Literature Review – Slide Presentation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #555555;
+      --border: #e0e0e0;
+      --accent: #111111;
+      --row-even: #f7f7f7;
+      --tag-bg: #111;
+      --tag-text: #fff;
+      --slide-max: 1100px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px 60px;
+      gap: 24px;
+    }
+
+    /* Controls bar */
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 12px;
+      padding: 10px 20px;
+      user-select: none;
+    }
+    .controls button {
+      background: #111;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 7px 18px;
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .controls button:hover { background: #333; border-color: #666; }
+    .controls button:disabled { opacity: 0.35; cursor: default; }
+    .slide-counter { color: #aaa; font-size: 13px; min-width: 80px; text-align: center; }
+
+    /* Slide wrapper */
+    .slide-viewport {
+      width: 100%;
+      max-width: var(--slide-max);
+      position: relative;
+    }
+
+    .slide {
+      background: var(--bg);
+      border-radius: 6px;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.55);
+      padding: 52px 60px 48px;
+      display: none;
+      animation: fadeIn 0.22s ease;
+    }
+    .slide.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Slide label */
+    .slide-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    /* Slide title */
+    .slide-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 32px;
+      line-height: 1.15;
+    }
+
+    /* Subtitle bar */
+    .subtitle {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 28px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    /* Table */
+    .lit-table-wrap {
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      color: var(--text);
+    }
+    thead tr {
+      border-bottom: 2px solid var(--accent);
+    }
+    thead th {
+      text-align: left;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #333;
+      padding: 10px 14px 10px 0;
+    }
+    thead th:first-child { width: 46px; padding-left: 0; }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.13s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #f3f3f3; }
+    tbody td {
+      padding: 11px 14px 11px 0;
+      vertical-align: top;
+      line-height: 1.55;
+      color: #222;
+    }
+    tbody td:first-child {
+      color: #888;
+      font-weight: 600;
+      font-size: 12px;
+      padding-left: 0;
+      white-space: nowrap;
+      vertical-align: top;
+      padding-top: 13px;
+    }
+    .citation-cell {
+      font-weight: 600;
+      color: #111;
+      font-size: 12px;
+    }
+    .citation-cell em {
+      display: block;
+      font-style: normal;
+      font-weight: 400;
+      color: #666;
+      font-size: 11.5px;
+      margin-top: 1px;
+    }
+    .finding-cell { color: #1a1a1a; }
+    .limitation-cell { color: #b33; font-size: 12px; }
+    .tag {
+      display: inline-block;
+      background: #111;
+      color: #fff;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-bottom: 5px;
+    }
+    .tag.blue  { background: #1a4fa0; }
+    .tag.green { background: #1a6e3c; }
+    .tag.orange{ background: #b05a00; }
+    .tag.purple{ background: #5a1a8a; }
+    .tag.red   { background: #9b1c1c; }
+    .tag.teal  { background: #0a6068; }
+    .tag.gray  { background: #444; }
+
+    /* Section divider inside table slides */
+    .section-row td {
+      background: #f0f0f0;
+      font-weight: 700;
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #444;
+      padding: 7px 14px 7px 0;
+      border-bottom: 1px solid #ccc;
+    }
+    .section-row td:first-child { padding-left: 0; }
+
+    /* Summary slide */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 8px;
+    }
+    .summary-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 22px;
+    }
+    .summary-card h3 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #555;
+      margin-bottom: 10px;
+    }
+    .summary-card ul { list-style: none; padding: 0; }
+    .summary-card ul li {
+      font-size: 13px;
+      color: #222;
+      padding: 5px 0;
+      border-bottom: 1px solid #f0f0f0;
+      line-height: 1.4;
+    }
+    .summary-card ul li:last-child { border-bottom: none; }
+    .gap-box {
+      grid-column: 1 / -1;
+      background: #111;
+      color: #fff;
+      border-radius: 6px;
+      padding: 22px 24px;
+    }
+    .gap-box h3 { color: #aaa; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+    .gap-box ul { list-style: none; }
+    .gap-box ul li {
+      font-size: 13px;
+      padding: 5px 0 5px 18px;
+      position: relative;
+      border-bottom: 1px solid #333;
+      line-height: 1.4;
+    }
+    .gap-box ul li:last-child { border-bottom: none; }
+    .gap-box ul li::before { content: 'to'; position: absolute; left: 0; color: #aaa; }
+
+    /* Slide footer */
+    .slide-footer {
+      margin-top: 32px;
+      padding-top: 14px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .slide-footer .institution { font-size: 11px; color: #999; }
+    .slide-footer .page-num { font-size: 11px; color: #bbb; }
+
+    @media (max-width: 700px) {
+      .slide { padding: 32px 22px 28px; }
+      .slide-title { font-size: 26px; }
+      .summary-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button id="prevBtn" onclick="changeSlide(-1)" disabled>Prev</button>
+  <span class="slide-counter" id="counter">Slide 1 / 7</span>
+  <button id="nextBtn" onclick="changeSlide(1)">Next</button>
+</div>
+
+<div class="slide-viewport">
+
+<!-- SLIDE 1: Title -->
+<div class="slide active" id="slide-1">
+  <div class="slide-label">Slide 1</div>
+  <div class="slide-title">Literature Review</div>
+  <p class="subtitle">An Edge-Deployable Multi-Task Deep Learning Framework for Simultaneous Basecalling,
+  Epigenetic Modification Detection, and Transcript Quantification from Nanopore Signals</p>
+
+  <div class="summary-grid" style="margin-top:24px;">
+    <div class="summary-card">
+      <h3>Five Review Pillars</h3>
+      <ul>
+        <li>1. Neural Basecalling Architectures [1-5]</li>
+        <li>2. Multi-Task Learning in Genomics [8-10]</li>
+        <li>3. Epigenetic Modification Detection [11-14]</li>
+        <li>4. Model Compression and Quantization [15]</li>
+        <li>5. Edge Hardware for Nanopore Sequencing [4, 6, 7]</li>
+        <li>6. Dataset Provenance [16-17]</li>
+      </ul>
+    </div>
+    <div class="summary-card">
+      <h3>Coverage</h3>
+      <ul>
+        <li>17 peer-reviewed references</li>
+        <li>Journals: Nature Comms, Genome Biology, Bioinformatics, IEEE TVLSI, BMC Genomics</li>
+        <li>Years: 2019 to 2026</li>
+        <li>Authors: Aditya, Joel, Dinesh and Ansh</li>
+        <li>Amrita Vishwa Vidyapeetham, Coimbatore</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="institution">Amrita Vishwa Vidyapeetham - August 2026</span>
+    <span class="page-num">1 / 6</span>
+  </div>
+</div>
+
+<!-- SLIDE 2: Refs [1-5] Basecalling Architectures -->
+<div class="slide" id="slide-2">
+  <div class="slide-label">Slide 2</div>
+  <div class="slide-title">Literature Review</div>
+  <p class="subtitle">Section 2 - Neural Network Basecalling Architectures - References [1-5]</p>
+
+  <div class="lit-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Citation</th>
+          <th>Core Contribution</th>
+          <th>Key Finding</th>
+          <th>Limitation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>[1]</td>
+          <td class="citation-cell">
+            <span class="tag blue">Basecalling</span><br>
+            Wick et al., 2019<em>Genome Biology 20(1), 129</em>
+          </td>
+          <td>Standard benchmark methodology for nanopore basecallers; evaluates individual-read and assembly-level consensus accuracy.</td>
+          <td class="finding-cell">Taxon-specific training substantially improves consensus accuracy, motivating training on bacterial isolates (NO-MISS).</td>
+          <td class="limitation-cell">Benchmarks older RNN/HMM-era tools; may not fully reflect transformer-era accuracy.</td>
+        </tr>
+        <tr>
+          <td>[2]</td>
+          <td class="citation-cell">
+            <span class="tag blue">Basecalling</span><br>
+            Xu et al. (Fast-Bonito), 2021<em>AI in the Life Sciences 1, 100011</em>
+          </td>
+          <td>Neural architecture search redesign of Bonito for GPU speed optimisation.</td>
+          <td class="finding-cell">153.8% speed improvement on GPU with comparable/better accuracy; direct precedent for speed/accuracy trade-offs under compression.</td>
+          <td class="limitation-cell">GPU-centric; no edge/embedded deployment analysis or power profiling.</td>
+        </tr>
+        <tr>
+          <td>[3]</td>
+          <td class="citation-cell">
+            <span class="tag blue">Basecalling</span><br>
+            Pages-Gallego and De Ridder, 2023<em>Genome Biology 24(1), 71</em>
+          </td>
+          <td>Most rigorous standardised benchmark of basecaller architectures to date.</td>
+          <td class="finding-cell">Bonito CNN+LSTM+CRF design remains state-of-the-art; species bias in training data has large performance impact.</td>
+          <td class="limitation-cell">Benchmark may lag behind rapid model updates (e.g., Dorado SUP v5 post-publication).</td>
+        </tr>
+        <tr>
+          <td>[4]</td>
+          <td class="citation-cell">
+            <span class="tag teal">Edge</span><br>
+            Peresini et al. (DeepNano-coral), 2021<em>Bioinformatics 37(24), 4661-4667</em>
+          </td>
+          <td>Real-time edge basecalling on USB-attached Coral Edge TPU.</td>
+          <td class="finding-cell">Achieves real-time basecalling at only 10 W with accuracy comparable to Guppy fast mode; key power/throughput baseline for Jetson comparison.</td>
+          <td class="limitation-cell">Single-task (basecalling only); no modification detection or transcript quantification head.</td>
+        </tr>
+        <tr>
+          <td>[5]</td>
+          <td class="citation-cell">
+            <span class="tag blue">Basecalling</span><br>
+            Xie et al. (Coral), 2026<em>Nature Comms 17(1), 1851</em>
+          </td>
+          <td>Transformer encoder-decoder basecaller with dual context-awareness at signal and sequence levels for direct RNA sequencing.</td>
+          <td class="finding-cell">Up to 6.17% accuracy improvement over Dorado on direct RNA; useful architectural contrast to Dorado for our accuracy targets.</td>
+          <td class="limitation-cell">RNA-focused; applicability to DNA basecalling and modification detection is not directly demonstrated.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-footer">
+    <span class="institution">Amrita Vishwa Vidyapeetham - August 2026</span>
+    <span class="page-num">2 / 6</span>
+  </div>
+</div>
+
+<!-- SLIDE 3: Refs [6-10] Edge HW + Multi-task -->
+<div class="slide" id="slide-3">
+  <div class="slide-label">Slide 3</div>
+  <div class="slide-title">Literature Review</div>
+  <p class="subtitle">Section 3 and 6 - Edge Hardware and Multi-Task Learning in Genomics - References [6-10]</p>
+
+  <div class="lit-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Citation</th>
+          <th>Core Contribution</th>
+          <th>Key Finding</th>
+          <th>Limitation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="section-row"><td colspan="5">Edge and Embedded Hardware (Section 6)</td></tr>
+        <tr>
+          <td>[6]</td>
+          <td class="citation-cell">
+            <span class="tag teal">Edge HW</span><br>
+            Savari et al., 2025<em>IEEE TVLSI 34(2), 606-619</em>
+          </td>
+          <td>Dedicated FPGA-based RISC-V CTC Viterbi decoder accelerator for mobile DNA sequencers.</td>
+          <td class="finding-cell">Over 23,000 bases/second at only 0.43 W overhead power; hardware-accelerated decoding baseline for GPU inference comparison.</td>
+          <td class="limitation-cell">FPGA-specific; not directly portable to Jetson TensorRT pipeline; sequence decoding only.</td>
+        </tr>
+        <tr>
+          <td>[7]</td>
+          <td class="citation-cell">
+            <span class="tag teal">Edge HW</span><br>
+            Wu et al., 2025<em>IEEE Trans. Comput. Biol. Bioinformatics</em>
+          </td>
+          <td>Heterogeneous RISC-V SoC integrating basecalling and sequence-alignment accelerators.</td>
+          <td class="finding-cell">11.5x and 1.2x energy efficiency over x86 CPUs and high-end GPUs at 83.7% basecalling accuracy; closest system-level competitor for Pareto-frontier analysis.</td>
+          <td class="limitation-cell">No modification detection or multi-task head; custom SoC not commercially available for direct benchmarking.</td>
+        </tr>
+        <tr class="section-row"><td colspan="5">Multi-Task Learning in Genomics (Section 3)</td></tr>
+        <tr>
+          <td>[8]</td>
+          <td class="citation-cell">
+            <span class="tag purple">Multi-Task</span><br>
+            Luo et al. (Clairvoyante), 2019<em>Nature Comms 10(1), 998</em>
+          </td>
+          <td>Foundational multi-task CNN for genomics jointly predicting variant type, zygosity, allele, and indel length from a shared encoder.</td>
+          <td class="finding-cell">Directly analogous to our multi-head architecture design; establishes viability of shared-encoder multi-output genomic learning.</td>
+          <td class="limitation-cell">Operates on pileup images, not raw nanopore signal; no modification detection component.</td>
+        </tr>
+        <tr>
+          <td>[9]</td>
+          <td class="citation-cell">
+            <span class="tag purple">Multi-Task</span><br>
+            Xiong et al. (MASS), 2021<em>Nucleic Acids Research 49(7), 3719-3734</em>
+          </td>
+          <td>Multi-task curriculum learning applied to m6A RNA modification signal across multiple species simultaneously.</td>
+          <td class="finding-cell">Template for weighting and sequencing task losses during training; captures cross-species modification signals jointly.</td>
+          <td class="limitation-cell">RNA modification focused; curriculum learning strategy may need adaptation for DNA nanopore basecalling context.</td>
+        </tr>
+        <tr>
+          <td>[10]</td>
+          <td class="citation-cell">
+            <span class="tag purple">Multi-Task</span><br>
+            Wang et al., 2024<em>Nature Comms 15(1), 7148</em>
+          </td>
+          <td>Incremental learning plus anomaly detection to adapt basecalling models for modification-rich sequences.</td>
+          <td class="finding-cell">Close precedent for how Head A (sequence) and Head B (modification) interact within a shared backbone; shows adaptation feasibility.</td>
+          <td class="limitation-cell">Two-stage sequential approach; not a single-pass joint multi-task model as proposed here.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-footer">
+    <span class="institution">Amrita Vishwa Vidyapeetham - August 2026</span>
+    <span class="page-num">3 / 6</span>
+  </div>
+</div>
+
+<!-- SLIDE 4: Refs [11-14] Modification Detection -->
+<div class="slide" id="slide-4">
+  <div class="slide-label">Slide 4</div>
+  <div class="slide-title">Literature Review</div>
+  <p class="subtitle">Section 4 - Epigenetic Modification Detection - References [11-14]</p>
+
+  <div class="lit-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Citation</th>
+          <th>Core Contribution</th>
+          <th>Key Finding</th>
+          <th>Limitation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>[11]</td>
+          <td class="citation-cell">
+            <span class="tag green">Modification</span><br>
+            Liu et al. (DeepMod), 2019<em>Nature Comms 10(1), 2449</em>
+          </td>
+          <td>Foundational bidirectional RNN for 5mC/6mA detection from raw Oxford Nanopore signal.</td>
+          <td class="finding-cell">High precision (0.9+) for 5mC/6mA; establishes baseline accuracy our multi-task Head B must approach under a shared compressed encoder.</td>
+          <td class="limitation-cell">Requires dedicated modification-calling model; no joint basecalling; based on older FAST5 format, not POD5.</td>
+        </tr>
+        <tr>
+          <td>[12]</td>
+          <td class="citation-cell">
+            <span class="tag green">Modification</span><br>
+            Ni et al. (DeepSignal), 2019<em>Bioinformatics 35(22), 4586-4595</em>
+          </td>
+          <td>Deep-learning DNA methylation detection from Nanopore reads using bidirectional RNN on FAST5.</td>
+          <td class="finding-cell">High precision (0.9+) for methylation calling; companion foundational baseline alongside DeepMod for Head B accuracy bar.</td>
+          <td class="limitation-cell">RNN-only; single-task; not adapted for modern R10.4.1 chemistry or POD5 file format.</td>
+        </tr>
+        <tr>
+          <td>[13]</td>
+          <td class="citation-cell">
+            <span class="tag green">Modification</span><br>
+            Ahsan et al. (DeepMod2), 2024<em>Nature Comms 15(1), 1448</em>
+          </td>
+          <td>Most direct modern comparator: BiLSTM and Transformer variants for modification calling on POD5/FAST5 files.</td>
+          <td class="finding-cell">Performance comparable to closed-source Guppy/Dorado; essential accuracy benchmark for our POD5-based pipeline.</td>
+          <td class="limitation-cell">Single-task modification model only; does not jointly perform basecalling or transcript classification.</td>
+        </tr>
+        <tr>
+          <td>[14]</td>
+          <td class="citation-cell">
+            <span class="tag green">Modification</span><br>
+            Kulkarni et al., 2026<em>Nature Comms (in press)</em>
+          </td>
+          <td>Most recent systematic cross-species benchmark of nanopore methylation tools covering 5mC (non-CpG), 6mA, and 4mC detection.</td>
+          <td class="finding-cell">Newer models substantially improve non-CpG 5mC, 6mA, and 4mC detection; directly informs our modification evaluation protocol structure.</td>
+          <td class="limitation-cell">Benchmarking study only; no novel architecture; may miss very latest models at time of our submission.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-footer">
+    <span class="institution">Amrita Vishwa Vidyapeetham - August 2026</span>
+    <span class="page-num">4 / 6</span>
+  </div>
+</div>
+
+<!-- SLIDE 5: Refs [15-17] Quantisation + Dataset -->
+<div class="slide" id="slide-5">
+  <div class="slide-label">Slide 5</div>
+  <div class="slide-title">Literature Review</div>
+  <p class="subtitle">Section 5 and 7 - Model Compression / Quantization and Dataset Provenance - References [15-17]</p>
+
+  <div class="lit-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Citation</th>
+          <th>Core Contribution</th>
+          <th>Key Finding</th>
+          <th>Limitation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="section-row"><td colspan="5">Model Compression and Quantization (Section 5)</td></tr>
+        <tr>
+          <td>[15]</td>
+          <td class="citation-cell">
+            <span class="tag orange">Compression</span><br>
+            Salah et al., 2025<em>Integration, 102508</em>
+          </td>
+          <td>Post-training INT8 quantization (PTQ) of FP32 CNNs (VGG16, ResNet50) via asymmetric quantization for FPGA deployment without retraining.</td>
+          <td class="finding-cell">Up to 67% throughput gain, 68% latency reduction, and substantial Power-Delay Product gains at marginal accuracy loss; frames our less than 5% degradation target as realistic.</td>
+          <td class="limitation-cell">Applied to vision CNNs on FPGA, not nanopore signal models or TensorRT/Jetson pipeline; genomics-specific PTQ literature is essentially absent.</td>
+        </tr>
+        <tr class="section-row"><td colspan="5">Dataset Provenance - Two-Dataset Design (Section 7)</td></tr>
+        <tr>
+          <td>[16]</td>
+          <td class="citation-cell">
+            <span class="tag gray">Dataset</span><br>
+            Galeone et al., 2025<em>BMC Genomics 26(1), 394</em>
+          </td>
+          <td>Profiles methylation patterns across four public-health-relevant bacterial species including Enterococcus faecium using Dorado SUP v5 on R10.4.1 chemistry.</td>
+          <td class="finding-cell">Primary literature anchor justifying SRR32250932 (PRJNA1091452) as a valid, well-characterised independent test target with documented 5mC/6mA motifs.</td>
+          <td class="limitation-cell">Species-limited (four species); may not represent broader genomic diversity required for generalisation claims.</td>
+        </tr>
+        <tr>
+          <td>[17]</td>
+          <td class="citation-cell">
+            <span class="tag gray">Dataset</span><br>
+            Dabernig-Heinz et al., 2025<em>Scientific Data 12(1), 1905</em>
+          </td>
+          <td>Companion dataset paper from same group: 79-isolate multicenter nanopore raw-signal resource supporting re-basecalling and nucleotide-modification reanalysis.</td>
+          <td class="finding-cell">Methodological context for our .pod5 conversion and re-basecalling pipeline; validates train/test independence of PRJNA1091452.</td>
+          <td class="limitation-cell">Data descriptor only; no novel algorithmic contribution; raw signal quality varies across isolates and sequencing centres.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-footer">
+    <span class="institution">Amrita Vishwa Vidyapeetham - August 2026</span>
+    <span class="page-num">5 / 6</span>
+  </div>
+</div>
+
+<!-- SLIDE 6: Literature Gaps Summary -->
+<div class="slide" id="slide-6">
+  <div class="slide-label">Slide 6</div>
+  <div class="slide-title">Literature Gaps and Novelty</div>
+  <p class="subtitle">Summary of gaps addressed by this work - Section 8</p>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <h3>Mature Sub-fields (Strong Precedent)</h3>
+      <ul>
+        <li>Basecalling architectures [1-5] - well benchmarked</li>
+        <li>Multi-task genomic modelling [8-10] - established</li>
+        <li>Modification detection [11-14] - mature, high precision</li>
+      </ul>
+    </div>
+    <div class="summary-card">
+      <h3>Partial Coverage</h3>
+      <ul>
+        <li>Edge basecalling [4, 6, 7] - sequence decoding only; no joint modification detection or transcript prediction</li>
+        <li>PTQ for CNNs [15] - vision architectures only; not applied to nanopore signal models</li>
+      </ul>
+    </div>
+    <div class="gap-box">
+      <h3>Unaddressed Intersection - Our Novelty</h3>
+      <ul>
+        <li>No prior work jointly addresses: (a) single-pass multi-task nanopore architecture + (b) INT8 PTQ via TensorRT + (c) real edge deployment with full power/throughput/accuracy benchmarking</li>
+        <li>No prior nanopore basecalling or modification-detection model has been INT8-quantized via TensorRT for edge deployment</li>
+        <li>This framework is a genuine methodological synthesis, not an incremental extension of any single prior work</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span class="institution">Amrita Vishwa Vidyapeetham - August 2026</span>
+    <span class="page-num">6 / 6</span>
+  </div>
+</div>
+
+<!-- SLIDE 7: NO-MISS Dorado Ground-Truth Results -->
+<div class="slide" id="slide-7">
+  <div class="slide-label">Slide 7</div>
+  <div class="slide-title">Ground-Truth Generation Results</div>
+  <p class="subtitle">NO-MISS File 0 of 8 — Dorado SUP v5.2.0 Basecalling + 4mC/5mC &amp; 6mA Tagging — RTX 3070 Laptop (8 GB VRAM)</p>
+
+  <div class="lit-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Measurement</th>
+          <th>Recorded Value</th>
+          <th>Contextualisation vs. Literature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="section-row"><td colspan="3">Run Logistics</td></tr>
+        <tr>
+          <td>First run started</td>
+          <td>23 Sep 2026, 4:38:42 PM IST</td>
+          <td rowspan="2">Job interrupted and resumed — a real-world robustness test of Dorado's <code>--resume</code> capability. Resumed from <strong>96,964</strong> already-processed read IDs in the moves BAM.</td>
+        </tr>
+        <tr>
+          <td>Resumed run started</td>
+          <td>24 Sep 2026, 3:08:52 AM IST</td>
+        </tr>
+        <tr>
+          <td>Processing finished</td>
+          <td>24 Sep 2026, 12:39:01 PM IST</td>
+          <td>Resumed processing time: <strong>9 h 29 min 46 s</strong> (34,185,827 ms). Overall elapsed span: <strong>16 h 00 min 19 s</strong>.</td>
+        </tr>
+
+        <tr class="section-row"><td colspan="3">Throughput and Scale</td></tr>
+        <tr>
+          <td>Signal throughput</td>
+          <td><strong>136,241 samples / second</strong><br><span style="color:#888;font-size:11.5px">(1.3624×10⁵ samples/s)</span></td>
+          <td>DeepNano-coral [4] achieves real-time speed at <strong>10 W</strong> on Coral TPU. Our RTX 3070 at ~80 W for label generation (not real-time inference) — sets the FP32 workstation throughput baseline for Phase 4 Pareto analysis.</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td>1 POD5 file · <strong>304,990</strong> raw reads · ~5.5 GiB</td>
+          <td>This is file 0 of 8 from the NO-MISS dataset. Total training set: <strong>2,111,656 reads</strong> across 8 files. Taxon-specific training (24 bacterial isolates) is motivated by Wick et al. [1].</td>
+        </tr>
+        <tr>
+          <td>Simplex reads basecalled</td>
+          <td><strong>305,759</strong> simplex reads<br>622 reads filtered</td>
+          <td>0.20% filter rate — very low, indicating high-quality R10.4.1 signal. Consistent with Pages-Gallego and De Ridder [3] finding that SUP mode maximises per-read accuracy.</td>
+        </tr>
+        <tr>
+          <td>Final output</td>
+          <td><strong>309,432</strong> BAM records<br><span style="color:#888;font-size:11.5px">(split-read/duplicate audit pending)</span></td>
+          <td>~4,442 supplementary/split records above input count — expected for long-read data where chimeric reads are split at adapter junctions. Standard in Dorado SUP output.</td>
+        </tr>
+
+        <tr class="section-row"><td colspan="3">Tag Completeness Verification (samtools view | awk)</td></tr>
+        <tr>
+          <td>MM modification tags</td>
+          <td><strong>309,432 / 309,432</strong> ✅</td>
+          <td rowspan="5"><strong>100% tag coverage</strong> across all five tag types. MM:Z and ML:B carry the ground-truth 4mC/5mC and 6mA modification probabilities used as Head B training labels. mv (move tables) enable signal-to-base alignment for Phase 1 windowing. ts (signal start) and ns (sample count) anchor each base call to its raw signal samples — critical for 4,096-sample window construction.</td>
+        </tr>
+        <tr>
+          <td>ML probability tags</td>
+          <td><strong>309,432 / 309,432</strong> ✅</td>
+        </tr>
+        <tr>
+          <td>mv move tables</td>
+          <td><strong>309,432 / 309,432</strong> ✅</td>
+        </tr>
+        <tr>
+          <td>ts signal-start tags</td>
+          <td><strong>309,432 / 309,432</strong> ✅</td>
+        </tr>
+        <tr>
+          <td>ns sample-count tags</td>
+          <td><strong>309,432 / 309,432</strong> ✅</td>
+        </tr>
+
+        <tr class="section-row"><td colspan="3">BAM Integrity</td></tr>
+        <tr>
+          <td>samtools quickcheck</td>
+          <td><strong>Exit code 0</strong> ✅ (PASSED)</td>
+          <td>BAM is structurally valid and fully readable. Ready for sort + index then Phase 1 preprocessing.</td>
+        </tr>
+        <tr>
+          <td>Models used</td>
+          <td>SUP v5.2.0 · 4mC_5mC v1 · 6mA v1</td>
+          <td>Matches Galeone et al. [16] methodology (Dorado SUP v5 on R10.4.1), ensuring label consistency with the test set provenance paper. Ahsan et al. DeepMod2 [13] is the accuracy benchmark our Head B must approach.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:20px; padding:14px 18px; background:#f7f7f7; border-radius:6px; border-left:3px solid #111; font-size:12.5px; color:#333; line-height:1.6">
+    <strong>Next:</strong> Repeat for files 1–7 (remaining ~1.8M reads), then run Dorado on PRJNA test set (123,518 reads). After all 8 + 1 BAMs pass quickcheck, proceed to Phase 1 signal preprocessing: Z-score/MAD normalisation → 4,096-sample windowing (25% overlap) → WebDataset <code>.tar</code> sharding.
+  </div>
+
+  <div class="slide-footer">
+    <span class="institution">Amrita Vishwa Vidyapeetham — September 2026</span>
+    <span class="page-num">7 / 7</span>
+  </div>
+</div>
+
+</div><!-- /slide-viewport -->
+
+<script>
+  let current = 1;
+  const total = 7;
+
+  function changeSlide(dir) {
+    document.getElementById('slide-' + current).classList.remove('active');
+    current += dir;
+    document.getElementById('slide-' + current).classList.add('active');
+    document.getElementById('counter').textContent = 'Slide ' + current + ' / ' + total;
+    document.getElementById('prevBtn').disabled = (current === 1);
+    document.getElementById('nextBtn').disabled = (current === total);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      if (current < total) changeSlide(1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      if (current > 1) changeSlide(-1);
+    }
+  });
+</script>
+</body>
+</html>

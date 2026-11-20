@@ -1,0 +1,163 @@
+01_NO_MISS_2_Raw_Ionic_Current.png
+Figure 1. Calibrated ionic current for parent 80c0ad7c-7b6a-4393-aa28-cf442c2e002d before normalization. All samples are displayed without smoothing.
+Embedded resolution: 2137 × 699 pixels
+
+02_NO_MISS_2_Median_MAD_Normalization.png
+Figure 2. First 4,096 samples of the called segment before normalization (top) and after median–MAD normalization (bottom).
+Embedded resolution: 2137 × 1059 pixels
+
+03_NO_MISS_2_Signal_Base_Modification_Alignment.png
+Figure 3. A fixed middle section of 40 called bases with Dorado modification probabilities. The signal and predictions share parent-signal coordinates. The dashed probability line marks an illustrative threshold of 0.5.
+Embedded resolution: 2497 × 1419 pixels
+
+04_NO_MISS_2_Called_Read_Lengths.png
+Figure 4. Distribution of positive called lengths across the completed BAM, including split children. Both axes use logarithmic scales.
+Embedded resolution: 1596 × 802 pixels
+
+05_NO_MISS_2_Predicted_Read_Quality.png
+Figure 5. Distribution of Dorado mean read Q scores across all 272,684 records.
+Embedded resolution: 1596 × 807 pixels
+
+06_NO_MISS_2_Read_Length_vs_Predicted_Quality.png
+Figure 6. Called length versus predicted read Q score for a deterministic random sample of 5,000 BAM records. The horizontal axis is logarithmic.
+Embedded resolution: 1597 × 802 pixels
+
+07_NO_MISS_2_Modification_Probability_Distributions.png
+Figure 7. Dorado probability distributions for 6mA, 4mC and 5mC over the completed BAM. Counts use a logarithmic vertical scale and include each scored position once per BAM record.
+Embedded resolution: 2316 × 790 pixels
+
+08_NO_MISS_2_Modification_Threshold_Fractions.png
+Figure 8. Percentage of reported probabilities meeting illustrative thresholds of 0.5 and 0.9, separately for each modification.
+Embedded resolution: 1597 × 842 pixels
+
+09_NO_MISS_2_Parent_and_Window_Splits.png
+Figure 9. Exported parent reads and signal windows in each split. Assignment used SHA256(seed:parent_id) with seed 42 and 70/15/15 split probabilities.
+Embedded resolution: 1958 × 788 pixels
+
+10_NO_MISS_2_Modification_Label_Balance_by_Split.png
+Figure 10. Percentage of eligible window targets with Dorado probability at least 0.5, by split. Overlapping windows repeat some bases, so these counts differ from the BAM-level statistics.
+Embedded resolution: 1777 × 806 pixels
+
+11_NO_MISS_0_Called_Read_Lengths.png
+Figure 11. Called-read length distribution for NO-MISS 0, including split children. Both axes are logarithmic.
+Embedded resolution: 1596 × 802 pixels
+
+12_NO_MISS_0_Predicted_Read_Quality.png
+Figure 12. Dorado predicted mean read Q scores for all 309,432 NO-MISS 0 BAM records.
+Embedded resolution: 1598 × 807 pixels
+
+13_NO_MISS_0_Read_Length_vs_Predicted_Quality.png
+Figure 13. Length versus predicted Q score for a deterministic sample of 5,000 records from NO-MISS 0.
+Embedded resolution: 1597 × 802 pixels
+
+14_NO_MISS_0_Modification_Probability_Distributions.png
+Figure 14. Modification probability distributions for NO-MISS 0. Counts are BAM base positions, with a logarithmic count axis.
+Embedded resolution: 2316 × 790 pixels
+
+15_NO_MISS_0_Modification_Threshold_Fractions.png
+Figure 15. Fractions of reported modification scores at or above 0.5 and 0.9 for NO-MISS 0. Thresholds are illustrative.
+Embedded resolution: 1597 × 842 pixels
+
+16_NO_MISS_0_Example_1_Raw_Signal.png
+Figure 16. Raw parent signal for NO-MISS 0 example 1, containing 43,265 samples at 5,000 Hz. Every 1 sample(s) is displayed for overview only.
+Embedded resolution: 2137 × 699 pixels
+
+17_NO_MISS_0_Example_1_Normalization.png
+Figure 17. First 4,096 samples of the called segment before and after per-segment median–MAD normalization.
+Embedded resolution: 2137 × 1059 pixels
+
+18_NO_MISS_0_Example_1_Signal_Label_Alignment.png
+Figure 18. Forty middle called bases in NO-MISS 0 example 1, with coarse signal emission positions and modification probabilities.
+Embedded resolution: 2491 × 1419 pixels
+
+19_NO_MISS_1_Called_Read_Lengths.png
+Figure 19. Called-read length distribution for NO-MISS 1, including split children. Both axes are logarithmic.
+Embedded resolution: 1596 × 802 pixels
+
+20_NO_MISS_1_Predicted_Read_Quality.png
+Figure 20. Dorado predicted mean read Q scores for all 286,315 NO-MISS 1 BAM records.
+Embedded resolution: 1598 × 807 pixels
+
+21_NO_MISS_1_Read_Length_vs_Predicted_Quality.png
+Figure 21. Length versus predicted Q score for a deterministic sample of 5,000 records from NO-MISS 1.
+Embedded resolution: 1597 × 802 pixels
+
+22_NO_MISS_1_Modification_Probability_Distributions.png
+Figure 22. Modification probability distributions for NO-MISS 1. Counts are BAM base positions, with a logarithmic count axis.
+Embedded resolution: 2316 × 790 pixels
+
+23_NO_MISS_1_Modification_Threshold_Fractions.png
+Figure 23. Fractions of reported modification scores at or above 0.5 and 0.9 for NO-MISS 1. Thresholds are illustrative.
+Embedded resolution: 1597 × 842 pixels
+
+24_NO_MISS_1_Example_1_Raw_Signal.png
+Figure 24. Raw parent signal for NO-MISS 1 example 1, containing 58,454 samples at 5,000 Hz. Every 2 sample(s) is displayed for overview only.
+Embedded resolution: 2138 × 699 pixels
+
+25_NO_MISS_1_Example_1_Normalization.png
+Figure 25. First 4,096 samples of the called segment before and after per-segment median–MAD normalization.
+Embedded resolution: 2137 × 1059 pixels
+
+26_NO_MISS_1_Example_1_Signal_Label_Alignment.png
+Figure 26. Forty middle called bases in NO-MISS 1 example 1, with coarse signal emission positions and modification probabilities.
+Embedded resolution: 2497 × 1419 pixels
+
+27_NO_MISS_2_Example_2_Raw_Signal.png
+Figure 27. Full calibrated parent signal containing 34,269 samples at 5,000 Hz (approximately 6.85 seconds).
+Embedded resolution: 2137 × 699 pixels
+
+28_NO_MISS_2_Example_2_Normalization.png
+Figure 28. First 4,096 called-segment samples before and after per-segment median–MAD normalization.
+Embedded resolution: 2137 × 1059 pixels
+
+29_NO_MISS_2_Example_2_Signal_Label_Alignment.png
+Figure 29. Forty middle called bases mapped to signal emission positions with per-base modification scores. Dashed lines mark the illustrative 0.5 threshold.
+Embedded resolution: 2497 × 1419 pixels
+
+30_NO_MISS_2_Example_3_Raw_Signal.png
+Figure 30. Full calibrated parent signal containing 23,840 samples at 5,000 Hz (approximately 4.77 seconds).
+Embedded resolution: 2137 × 699 pixels
+
+31_NO_MISS_2_Example_3_Normalization.png
+Figure 31. First 4,096 called-segment samples before and after per-segment median–MAD normalization.
+Embedded resolution: 2137 × 1059 pixels
+
+32_NO_MISS_2_Example_3_Signal_Label_Alignment.png
+Figure 32. Forty middle called bases mapped to signal emission positions with per-base modification scores. Dashed lines mark the illustrative 0.5 threshold.
+Embedded resolution: 2498 × 1419 pixels
+
+33_Student_Width96_Validation_Sequence_Error_Curve.png
+Figure 33. Baseline window character error rate against Dorado across training. Monitoring uses the same 256 validation windows. The curve excludes the separate weighted-loss and overfit experiments.
+Embedded resolution: 1952 × 1071 pixels
+
+34_Student_Width96_Validation_Loss_Curves.png
+Figure 34. Validation CTC and modification BCE across baseline training. Loss values have different meanings and scales; neither is a percentage accuracy.
+Embedded resolution: 2048 × 755 pixels
+
+35_Student_Width96_Training_Loss_Curves.png
+Figure 35. Logged training losses. Each point reports the final microbatch at that logging step, not an epoch average or the mean across all accumulated microbatches. Variation is expected as batches change.
+Embedded resolution: 2048 × 770 pixels
+
+36_Student_Width96_Modification_Probability_Error_Curves.png
+Figure 36. Teacher-aligned modification probability MAE across baseline training on the fixed 256-window monitoring sample. This plot does not measure recall and is distinct from the 4,096-window assessment above.
+Embedded resolution: 2048 × 708 pixels
+
+37_Student_Width192_Sequence_Error_Components.png
+Figure 37. Error components for the selected wider model. Counts use one optimal unit-cost edit alignment; equally optimal alignments can change the breakdown.
+Embedded resolution: 1440 × 458 pixels
+
+38_Student_Width96_vs_Width192_Modification_Average_Precision.png
+Figure 38. Average precision on the matched 4,096-window validation sample. Model size and training duration both differ. AP is a ranking measure, not percentage accuracy.
+Embedded resolution: 1440 × 477 pixels
+
+39_Student_FP32_vs_FP16_Weight_File_Size.png
+Figure 39. FP16 storage reduces file size by 49.86%, a 1.994× compression ratio relative to the FP32 export of the same student.
+Embedded resolution: 1440 × 432 pixels
+
+40_Student_Greedy_vs_Beam_Decoding_Error_and_Time.png
+Figure 40. Beam decoding improves sequence agreement modestly while substantially increasing CPU decoding time in this implementation. Both axes start at zero.
+Embedded resolution: 1440 × 468 pixels
+
+41_Dorado_vs_Student_100_Read_Median_Wall_Time.png
+Figure 41. Measured medians across three trials. Batching improves the student pipeline, but the student remains slower than Dorado in this experiment.
+Embedded resolution: 1440 × 486 pixels
